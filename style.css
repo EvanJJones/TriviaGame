@@ -1,7 +1,70 @@
 h1 {
-    font-size: 5rem;
+    font-size: 4rem;
+    margin-bottom: 2rem;
 }
 
 h2 {
     font-size: 2rem;
+}
+
+b {
+    color: red;
+}
+
+body {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    /* make text unselectable taken from stack overflow */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+main {
+    margin: 1rem;
+}
+
+#scoreContainer {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.scoreAreaContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#wrong,
+#correct {
+    font-size: 2rem;
+}
+
+#timer {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+#nextQuestionButton,
+#startButton {
+    font-size: 3rem;
+    color: darkblue;
+}
+
+#nextQuestionButton:hover,
+#startButton:hover {
+    color: lightblue;
+}
+
+.answerButton {
+    font-size: 3rem;
+    color: blue;
+    margin: 1rem;
+}
+
+.answerButton:hover {
+    color: lightblue;
 }

@@ -1,5 +1,5 @@
 var questions = [{
-        Question: "The player charcter in the Legend of Zelda series is usually",
+        Question: "The player character in the Legend of Zelda series is usually",
         Answer1: "Zelda",
         Answer2: "Tingle",
         Answer3: "Navi",
@@ -9,31 +9,31 @@ var questions = [{
         Answer1: "Druid",
         Answer2: "Mage",
         Answer3: "Paladin",
-        CorrectAnswer: "Nechromancer"
+        CorrectAnswer: "Necromancer"
     }, {
-        Question: "question 3 is this that isn't written yet",
-        Answer1: "answer1",
-        Answer2: "anser2",
-        Answer3: "answer3",
-        CorrectAnswer: "correct"
+        Question: "The halo series was originally developed by what studio?",
+        Answer1: "Treyarch",
+        Answer2: "Nintendo",
+        Answer3: "Jummper",
+        CorrectAnswer: "Bungie"
     }, {
-        Question: "question 4 is this that isn't written yet",
-        Answer1: "answer1",
-        Answer2: "anser2",
-        Answer3: "answer3",
-        CorrectAnswer: "correct"
+        Question: "Call of Duty 4: Modern Warfare was developed by what studio?",
+        Answer1: "Treyarch",
+        Answer2: "Activision",
+        Answer3: "Sledgehammer",
+        CorrectAnswer: "Infinity Ward"
     }, {
-        Question: "question 5 is this that isn't written yet",
-        Answer1: "answer1",
-        Answer2: "anser2",
-        Answer3: "answer3",
-        CorrectAnswer: "correct"
+        Question: "Nier: Automata was directed by who?",
+        Answer1: "Hideo Kojima",
+        Answer2: "Shigeru Miyamoto",
+        Answer3: "Koji Igarashi",
+        CorrectAnswer: "Yoko Taro"
     }, {
-        Question: "question 6 is this that isn't written yet",
-        Answer1: "answer1",
-        Answer2: "anser2",
-        Answer3: "answer3",
-        CorrectAnswer: "correct"
+        Question: "Fortnite was developed by what studio?",
+        Answer1: "Bethesda",
+        Answer2: "id",
+        Answer3: "Nintendo",
+        CorrectAnswer: "Epic"
     }]
     //holds the questions in the current game
 var gameQuestions = Array.from(questions);
@@ -44,8 +44,12 @@ var game = {
 
     //bool that tracks if the timer is going
     timerRunning: false,
+
+
+    //value to star timer at
+    timerDefault: 10,
     //holds the timer
-    timer: 30,
+    timer: 10,
     //holds correct answers
     correct: 0,
     //holds incorrect answers
@@ -53,7 +57,7 @@ var game = {
     //current correct answer
     currentCorrectAnswer: " ",
     //length of game
-    length: 2,
+    length: 5,
     //questions asked
     questionsAsked: 0,
     //sets everything up for each questions
@@ -72,15 +76,17 @@ var game = {
         var answerArray = [currentQuestionObject.Answer1, currentQuestionObject.Answer2, currentQuestionObject.Answer3, currentQuestionObject.CorrectAnswer]
         game.currentCorrectAnswer = currentQuestionObject.CorrectAnswer;
 
+        // timer = game.timerDefault;
 
         //resets everything in main
         game.clear();
         changing = $("main");
+        $(".scoreAreaContainer").show();
 
         //creates the timer
         timerArea = $("<div>");
         timerArea.attr("id", "timer");
-        timerArea.text("30 seconds");
+        timerArea.text(game.timer);
         changing.append(timerArea);
 
         //creates the question
@@ -126,10 +132,12 @@ var game = {
         if (contents === game.currentCorrectAnswer) {
             game.correct++;
             game.CorrectAnswer();
+            $("#correct").text(game.correct);
 
         } else {
             game.wrong++;
             game.wrongAnswer();
+            $("#wrong").text(game.wrong);
 
         }
 
@@ -137,6 +145,7 @@ var game = {
 
     //starts the timer
     startTimer: function() {
+        this.timer = this.timerDefault;
         //starts timer
         timer = setInterval(game.count, 1000);
         //sets timer running variable true     
@@ -156,7 +165,7 @@ var game = {
 
         game.timerRunning = false;
         clearInterval(timer);
-        game.timer = 30;
+        game.timer = game.timerDefault;
         $("#timer").text(game.timer);
 
     },
@@ -185,7 +194,10 @@ var game = {
         game.wrong = 0;
         gameQuestions = Array.from(questions);
         game.questionsAsked = 0;
+        $(".scoreAreaContainer").hide();
         $("#startButton").on("click", game.startQuestion);
+        $("#correct").text(game.correct);
+        $("#wrong").text(game.wrong);
     },
 
     clear: function() {
@@ -199,7 +211,7 @@ var game = {
         var main = $("main");
         var anounceArea = $("<h1>");
         main.append(anounceArea);
-        anounceArea.text("sorry wrong answer the correct answer was " + game.currentCorrectAnswer);
+        anounceArea.html("sorry wrong answer the correct answer was '<b>" + game.currentCorrectAnswer + "'</b>");
 
         //createes button to move to the next question
         var nextButton = $("<div>");
@@ -245,12 +257,14 @@ var game = {
     },
 
     outOfTime: function() {
+        game.wrong++;
+        $("#wrong").text(game.wrong);
         game.endTimer();
         game.clear();
         var main = $("main");
         var anounceArea = $("<h1>");
         main.append(anounceArea);
-        anounceArea.text("sorry you ran out of time, the correct answer was " + game.currentCorrectAnswer);
+        anounceArea.html("sorry you ran out of time, the correct answer was '<b>" + game.currentCorrectAnswer + "'</b>");
 
         //createes button to move to the next question
         var nextButton = $("<div>");
@@ -271,5 +285,5 @@ var game = {
 
 }
 
-
+$(".scoreAreaContainer").hide();
 $("#startButton").on("click", game.startQuestion);
