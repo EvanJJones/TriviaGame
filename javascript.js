@@ -177,10 +177,10 @@ var game = {
         var main = $("main");
         var winArea = $("<h1>");
         main.append(winArea);
-        winArea.text("you got: " + game.correct + " Correct")
+        winArea.html("you got: <span>" + game.correct + "</span> Correct")
 
         var loseArea = $("<h1>");
-        loseArea.text("you got: " + game.wrong + " Wrong")
+        loseArea.html("you got: <b>" + game.wrong + "</b> Wrong")
         main.append(loseArea);
 
         //button to start the game again

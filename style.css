@@ -11,10 +11,15 @@ b {
     color: red;
 }
 
+span {
+    color: green;
+}
+
 body {
     width: 80%;
     margin: auto;
     text-align: center;
+    background-color: rgb(246, 255, 242);
     /* make text unselectable taken from stack overflow */
     -webkit-user-select: none;
     -moz-user-select: none;
